@@ -1,0 +1,26 @@
+QE_T.dat 
+ comes from PS QE as a function of Temperature, at a range of wavelengths data.
+ I translated the PS data to relative QE changes as a function of Temperature
+  and wavelength, then wrote that out in this file. 
+ The QE(T)(lambda) data should be replaced with data from the Camera Team 
+  when possible [AndyR has promised update]. 
+
+Txy_*.dat 
+ comes from a spreadsheet from Pat Haskell on Camera Team. 
+ The 'flat' versions represent an ideal case where the chips are flat 
+ and stick well to the temperature control doohickeys. 
+ Could be used with additional random T offset (per CCD) between 0 to +13. 
+ The 'tilt' versions represent a more realistic (?) case where the chips
+ are not all firmly adhered to the temperature control units, so there
+ starts to be a tilt in temperature across each CCD and raft. 
+ These can be used with either an additional random offset of 0-3 deg, 
+  or with a random offset between 0 to +13 deg.  (uniform distribution). 
+ The raft represented by the 11-33 CCD's can be duplicated across the 
+  focal plane.(how much T variation between rafts?? prob. similar to btwn CCD)
+
+
+Vignette.dat
+ comes from rewriting the data in the vignette function (which was itself based on
+ Vignette_3.3.TXT, which is presumably an engineering doc although I couldn't find it
+ in docushare.)
+

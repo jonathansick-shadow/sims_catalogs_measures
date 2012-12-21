@@ -1,0 +1,31 @@
+For the spatial variability of the bandpass: 
+
+Temperature variation across the focal plane affects the quantum efficiency in the y band. 
+
+qeTemperature :  
+QE_T_panstarrs.dat
+ This QE as a function of temperature curve comes from PS measurements, at a range of wavelengths.
+ I translated the PS data to relative QE changes as a function of Temperature
+  and wavelength, then wrote that out in this file. 
+
+
+temperatureMap - Temperature variability across the focal plane: 
+Txy_*.dat 
+ These files come from a spreadsheet from Pat Haskell on Camera Team (this is V1).
+ The 'flat' versions represent an ideal case where the chips are flat 
+ and stick well to the temperature control doohickeys. 
+ Could be used with additional random T offset (per CCD) between 0 to +13. 
+ The 'tilt' versions represent a more realistic (?) case where the chips
+ are not all firmly adhered to the temperature control units, so there
+ starts to be a tilt in temperature across each CCD and raft. 
+ These can be used with either an additional random offset of 0-3 deg, 
+  or with a random offset between 0 to +13 deg.  (uniform distribution). 
+ The raft represented by the 11-33 CCD's can be duplicated across the 
+  focal plane.(how much T variation between rafts?? prob. similar to btwn CCD)
+
+vignette: 
+Vignette.dat
+ comes from rewriting the data in the vignette function (which was itself based on
+ Vignette_3.3.TXT, which is presumably an engineering doc although I couldn't find it
+ in docushare.)
+vignette.py is a python program to write out the Vignette.dat file (should not need to be reused). 

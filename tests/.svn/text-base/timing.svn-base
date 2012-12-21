@@ -1,0 +1,12 @@
+[ljones@tusken tests]$ python test_SpatialBandpass.py
+Instantiating spatial bandpass: 0.000010 s
+Setting base throughput values (including running MODTRAN): 7.375872 s
+Setting QE variations across chip: 0.023989 s
+Calculating QE variations for 3 objects: 0.002525 s
+Set vignette function across fov: 0.000814 s
+[ 0.99158499]
+[ 0.]
+[ 1.]
+Calculated individal vignette fractions: 0.000768 s
+[ 0.99158499  0.          1.        ]
+Calculated all vignette fractions: 0.000768 s

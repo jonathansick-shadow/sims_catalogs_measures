@@ -22,8 +22,8 @@ class PhosimInputBase(InstanceCatalog):
                          
     def get_spatialmodel(self):
         chunkiter = xrange(len(self._current_chunk))
-        return numpy.array([self.db_obj.getSpatialModel() for i in
-               chunkiter], dtype=(str, 7))
+        return numpy.array([self.db_obj.getSpatialModelTrim() for i in
+               chunkiter], dtype=(str, 8))
                         
     def write_header(self, file_handle):
         md = self.obs_metadata.metadata

@@ -394,6 +394,15 @@ class InstanceCatalog(object):
 
         return self.delimiter.join(templ_list) + self.endline
 
+    def write_metadata(self, file_handle, meta_key='@'):
+        import json
+        obsmetadatadict = self.obs_metadata.summary
+        jsondict = json.dumps(obsmetadatadict)
+        jsonstring = meta_key + ' ' + jsondict + '\n\n'
+        file_handle.write(jsonstring)
+
+        return None
+
     def write_header(self, file_handle):
         column_names = list(self.iter_column_names())
         templ = [self.comment_char,]
@@ -402,12 +411,22 @@ class InstanceCatalog(object):
                 self.comment_char + self.delimiter.join(column_names))
                           + self.endline)
 
-    def write_catalog(self, filename, chunk_size=None,
-                      write_header=True, write_mode='w'):
+
+    def write_catalog(self, filename, chunk_size=None, write_metadata=False,
+                      meta_key=None, write_header=True, write_mode='w'):
+    # def write_catalog(self, filename, chunk_size=None,
+    #                  write_header=True, write_mode='w'):
         db_required_columns, required_columns_with_defaults = self.db_required_columns()
         template = None
 
         file_handle = open(filename, write_mode)
+
+        if write_metadata:
+            if write_metadata and meta_key is None:
+                raise ValueError('write_metadata=True requires valid string for meta_key\n')
+            else:
+                self.write_metadata(file_handle, meta_key=meta_key)
+
         if write_header:
             self.write_header(file_handle)
 

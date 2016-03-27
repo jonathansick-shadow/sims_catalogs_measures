@@ -3,6 +3,7 @@ import unittest
 import lsst.utils.tests as utilsTests
 from lsst.sims.catalogs.measures.instance import register_class, register_method
 
+
 @register_class
 class ClassA(object):
 
@@ -38,7 +39,6 @@ class ClassD(ClassA):
         return 'd'
 
 
-
 class MethodRegistryTestCase(unittest.TestCase):
 
     def testMethodInheritance(self):
@@ -48,7 +48,7 @@ class MethodRegistryTestCase(unittest.TestCase):
         """
 
         aa = ClassA()
-        self.assertTrue(aa.call('a')=='a')
+        self.assertTrue(aa.call('a') == 'a')
 
         # below, we test to make sure that methods which
         # should not be in ClassA's _methodRegistry are not
@@ -58,24 +58,22 @@ class MethodRegistryTestCase(unittest.TestCase):
         self.assertRaises(KeyError, aa.call, 'd')
 
         bb = ClassB()
-        self.assertTrue(bb.call('a')=='a')
-        self.assertTrue(bb.call('b')=='b')
+        self.assertTrue(bb.call('a') == 'a')
+        self.assertTrue(bb.call('b') == 'b')
         self.assertRaises(KeyError, bb.call, 'c')
         self.assertRaises(KeyError, bb.call, 'd')
 
         cc = ClassC()
-        self.assertTrue(cc.call('a')=='a')
-        self.assertTrue(cc.call('b')=='b')
-        self.assertTrue(cc.call('c')=='c')
+        self.assertTrue(cc.call('a') == 'a')
+        self.assertTrue(cc.call('b') == 'b')
+        self.assertTrue(cc.call('c') == 'c')
         self.assertRaises(KeyError, cc.call, 'd')
 
         dd = ClassD()
-        self.assertTrue(dd.call('a')=='a')
-        self.assertTrue(dd.call('d')=='d')
+        self.assertTrue(dd.call('a') == 'a')
+        self.assertTrue(dd.call('d') == 'd')
         self.assertRaises(KeyError, dd.call, 'b')
         self.assertRaises(KeyError, dd.call, 'c')
-
-
 
 
 def suite():
@@ -85,6 +83,7 @@ def suite():
     suites += unittest.makeSuite(MethodRegistryTestCase)
 
     return unittest.TestSuite(suites)
+
 
 def run(shouldExit=False):
     """Run the tests"""

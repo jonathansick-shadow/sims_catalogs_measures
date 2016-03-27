@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 __all__ = ["cached", "compound", "register_class", "register_method"]
 
-#---------------------------------------------------------------------- 
+#----------------------------------------------------------------------
 # Define decorators for get_* methods
 
 # The cached decorator specifies that once the column is computed for
@@ -16,6 +16,7 @@ def cached(f):
         raise ValueError("@cached can only be applied to get_* methods: "
                          "Method '%s' invalid." % f.__name__)
     colname = f.__name__.lstrip('get_')
+
     @wraps(f)
     def new_f(self, *args, **kwargs):
         if colname in self._column_cache:
@@ -26,6 +27,7 @@ def cached(f):
         return result
     new_f._cache_results = True
     return new_f
+
 
 def compound(*colnames):
     """Specifies that a column is a "compound column",
@@ -53,17 +55,19 @@ def compound(*colnames):
         return new_f
     return wrapper
 
+
 def register_class(cls):
     cls._methodRegistry = {}
     for methodname in dir(cls):
-        method=getattr(cls, methodname)
+        method = getattr(cls, methodname)
         if hasattr(method, '_registryKey'):
             if method._registryKey not in cls._methodRegistry:
-                cls._methodRegistry.update({method._registryKey:method})
+                cls._methodRegistry.update({method._registryKey: method})
     return cls
+
 
 def register_method(key):
     def wrapper(func):
-        func._registryKey=key
+        func._registryKey = key
         return func
     return wrapper

@@ -73,7 +73,6 @@ class CompoundInstanceCatalog(object):
 
                 self._dbObjectGroupList.append(new_row)
 
-
     def areDBObjectsTheSame(self, db1, db2):
         """
         @param [in] db1 is a CatalogDBObject instantiation
@@ -114,7 +113,6 @@ class CompoundInstanceCatalog(object):
         else:
             driver2 = None
 
-
         if db1.tableid != db2.tableid:
             return False
         if host1 != host2:
@@ -126,7 +124,6 @@ class CompoundInstanceCatalog(object):
         if driver1 != driver2:
             return False
         return True
-
 
     def find_a_connection(self, dboClass):
         """
@@ -158,12 +155,10 @@ class CompoundInstanceCatalog(object):
         else:
             desired_port = None
 
-
         if hasattr(dboClass, 'verbose'):
             desired_verbose = dboClass.verbose
         else:
             desired_verbose = False
-
 
         best_connection = None
 
@@ -178,7 +173,6 @@ class CompoundInstanceCatalog(object):
                 break
 
         return best_connection
-
 
     def write_catalog(self, filename, chunk_size=None, write_header=True, write_mode='w'):
         """
@@ -214,9 +208,8 @@ class CompoundInstanceCatalog(object):
             ic._write_pre_process()
             instantiated_ic_list[ix] = ic
 
-
         for row in self._dbObjectGroupList:
-            if len(row)==1:
+            if len(row) == 1:
                 ic = instantiated_ic_list[row[0]]
                 ic._query_and_write(filename, chunk_size=chunk_size,
                                     write_header=write_header, write_mode=write_mode,
@@ -239,7 +232,7 @@ class CompoundInstanceCatalog(object):
                     default_compound_dbo is CompoundCatalogDBObject
 
         for row in self._dbObjectGroupList:
-            if len(row)>1:
+            if len(row) > 1:
                 dbObjClassList = [self._dbo_list[ix] for ix in row]
                 catList = [instantiated_ic_list[ix] for ix in row]
 
@@ -259,8 +252,8 @@ class CompoundInstanceCatalog(object):
                     compound_dbo = None
                     for candidate in self._compoundDBclass:
                         use_it = True
-                        if False in [candidate._table_restriction is not None \
-                                     and dbo.tableid in candidate._table_restriction \
+                        if False in [candidate._table_restriction is not None
+                                     and dbo.tableid in candidate._table_restriction
                                      for dbo in dbObjClassList]:
 
                             use_it = False
@@ -272,13 +265,11 @@ class CompoundInstanceCatalog(object):
                     if compound_dbo is None:
                         compound_dbo = default_compound_dbo(dbObjClassList)
 
-
                 self._write_compound(catList, compound_dbo, filename,
                                      chunk_size=chunk_size, write_header=write_header,
                                      write_mode=write_mode)
                 write_mode = 'a'
                 write_header = False
-
 
     def _write_compound(self, catList, compound_dbo, filename,
                         chunk_size=None, write_header=False, write_mode='a'):
@@ -319,7 +310,6 @@ class CompoundInstanceCatalog(object):
             master_colnames.append(localNames)
             name_map.append(local_map)
 
-
         master_results = compound_dbo.query_columns(colnames=colnames,
                                                     obs_metadata=self._obs_metadata,
                                                     constraint=self._constraint,
@@ -328,7 +318,6 @@ class CompoundInstanceCatalog(object):
         with open(filename, write_mode) as file_handle:
             if write_header:
                 catList[0].write_header(file_handle)
-
 
             new_dtype_list = [None]*len(catList)
 
@@ -343,12 +332,13 @@ class CompoundInstanceCatalog(object):
 
                     local_recarray = chunk[master_colnames[ix]].view(numpy.recarray)
 
-                    local_recarray.flags['WRITEABLE'] = False # so numpy does not raise a warning
-                                                              # because it thinks we may accidentally
-                                                              # write to this array
+                    local_recarray.flags['WRITEABLE'] = False  # so numpy does not raise a warning
+                    # because it thinks we may accidentally
+                    # write to this array
                     if new_dtype_list[ix] is None:
                         new_dtype = numpy.dtype([
-                                                tuple([dd.replace(catName+'_','')] + [local_recarray.dtype[dd]]) \
+                                                tuple([dd.replace(catName+'_', '')] +
+                                                      [local_recarray.dtype[dd]])
                                                 for dd in master_colnames[ix]
                                                 ])
                         new_dtype_list[ix] = new_dtype
